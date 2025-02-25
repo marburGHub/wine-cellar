@@ -33,7 +33,7 @@ if st.button("Aggiungi Vino"):
     wine_data = pd.concat([wine_data, new_entry], ignore_index=True)
     save_data()
     st.success("Vino aggiunto con successo!")
-    st.experimental_rerun()
+    st.rerun()
 
 # Visualizzazione della lista di vini
 st.header("Lista dei Vini in Cantina")
