@@ -43,3 +43,7 @@ st.dataframe(wine_data)
 st.header("Rimuovi un vino")
 wine_to_remove = st.selectbox("Seleziona un vino da rimuovere", wine_data["Nome"].unique() if not wine_data.empty else [])
 if st.button("Rimuovi Vino") and not wine_data.empty:
+    wine_data = wine_data[wine_data["Nome"] != wine_to_remove]
+    save_data()
+    st.success("Vino rimosso con successo!")
+    st.experimental_rerun()
