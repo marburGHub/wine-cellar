@@ -18,10 +18,25 @@ def save_data():
 # Interfaccia Streamlit
 st.title("Gestione Cantina di Vini")
 
-# Menu principale
-menu = st.selectbox("Seleziona un'operazione", ["Aggiungi un vino", "Aggiungi un movimento", "Controlla lo stock", "Vedi statistiche"])
+# Menu principale con pulsanti
+st.write("### Seleziona un'operazione:")
+col1, col2 = st.columns(2)
+col3, col4 = st.columns(2)
 
-if menu == "Aggiungi un vino":
+if col1.button("Aggiungi un vino"):
+    st.session_state.page = "add_wine"
+if col2.button("Aggiungi un movimento"):
+    st.session_state.page = "add_movement"
+if col3.button("Controlla lo stock"):
+    st.session_state.page = "check_stock"
+if col4.button("Vedi statistiche"):
+    st.session_state.page = "view_stats"
+
+# Gestione della navigazione tra le pagine
+if "page" not in st.session_state:
+    st.session_state.page = "home"
+
+if st.session_state.page == "add_wine":
     st.header("Aggiungi un nuovo vino")
     name = st.text_input("Nome del vino")
     year = st.number_input("Anno", min_value=1900, max_value=2100, step=1)
@@ -38,15 +53,14 @@ if menu == "Aggiungi un vino":
         st.success("Vino aggiunto con successo!")
         st.rerun()
 
-elif menu == "Aggiungi un movimento":
+elif st.session_state.page == "add_movement":
     st.header("Aggiungi un movimento")
     st.write("Funzione in sviluppo...")
 
-elif menu == "Controlla lo stock":
+elif st.session_state.page == "check_stock":
     st.header("Lista dei Vini in Cantina")
     st.dataframe(wine_data)
 
-elif menu == "Vedi statistiche":
+elif st.session_state.page == "view_stats":
     st.header("Statistiche sui vini")
     st.write("Funzione in sviluppo...")
-
